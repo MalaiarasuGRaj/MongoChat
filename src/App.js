@@ -1,23 +1,86 @@
-import logo from './logo.svg';
+import React, { useState, useEffect, useRef } from "react";
+import axios from "axios";
 import './App.css';
+import ReactMarkdown from 'react-markdown';
 
 function App() {
+  const [query, setQuery] = useState("");
+  const [chatHistory, setChatHistory] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const chatContainerRef = useRef(null);
+
+  const handleQueryChange = (e) => {
+    setQuery(e.target.value);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!query.trim()) {
+      setError("Query cannot be empty.");
+      return;
+    }
+    setQuery("");
+
+    setLoading(true);
+    setError(null);
+
+    // Append the user's query to the chat history
+    const newHistory = [...chatHistory, { sender: "user", message: query }];
+    setChatHistory(newHistory);
+
+    try {
+      const res = await axios.get(`http://127.0.0.1:5000/query/${encodeURIComponent(query)}`);
+      const botResponse = res.data.Chatbot || "No response received.";
+
+      // Append the bot's response to the chat history
+      setChatHistory((prev) => [...prev, { sender: "bot", message: botResponse }]);
+    } catch (err) {
+      setError(
+        err.response?.data?.Message ||
+        "An error occurred while fetching the response. Please try again later."
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Scroll to the bottom of the chat container when the chat history changes
+  useEffect(() => {
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTo({
+        top: chatContainerRef.current.scrollHeight,
+        behavior: "smooth",
+      });
+    }
+  }, [chatHistory]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app-container">
+      <h1>DB Query Agent</h1>
+      <div className="chat-container" ref={chatContainerRef}>
+        {chatHistory.map((chat, index) => (
+          <div
+            key={index}
+            className={`chat-bubble ${chat.sender === "user" ? "user" : "bot"}`}
+          >
+            <ReactMarkdown>{chat.message}</ReactMarkdown>
+          </div>
+        ))}
+        {loading && <div className="chat-bubble bot">Loading...</div>}
+      </div>
+      <form onSubmit={handleSubmit} className="input-form">
+        <input
+          type="text"
+          value={query}
+          onChange={handleQueryChange}
+          placeholder="Enter your query..."
+          aria-label="Query Input"
+        />
+        <button type="submit" aria-label="Submit Query">Send</button>
+      </form>
+      {error && <div className="error-message">{error}</div>}
     </div>
   );
 }
