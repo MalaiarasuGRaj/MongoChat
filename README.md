@@ -1,70 +1,121 @@
-# Getting Started with Create React App
+\# 🧠 MongoChat – AI-Powered MongoDB Chatbot
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+MongoChat is a full-stack AI chatbot built with \*\*React\*\*, \*\*Flask\*\*, and \*\*MongoDB\*\*, powered by the \*\*LLaMA 3.2\*\* model from \*\*Sambanova\*\*. It allows users to connect their MongoDB database and interact with it using \*\*natural language\*\* queries. No more complex queries – just ask your data!
 
-## Available Scripts
+\---
 
-In the project directory, you can run:
+\## 🚀 Features
 
-### `npm start`
+\- 🧩 \*\*Natural Language Interface\*\* – Chat with your database like you're chatting with a friend.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+\- 🔌 \*\*MongoDB Integration\*\* – Connect any MongoDB instance seamlessly.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+\- 🧠 \*\*LLaMA 3.2 (Sambanova)\*\* – High-performance language model for accurate and context-aware responses.
 
-### `npm test`
+\- 🌐 \*\*Modern Frontend\*\* – Built with React for a sleek, responsive UI.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+\- 🛠️ \*\*Robust Backend\*\* – Flask API handles database queries and LLM integration.
 
-### `npm run build`
+\---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+\## 🖥️ Tech Stack
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+| Frontend | Backend | Database | AI/ML |
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+|----------|---------|----------|-------|
 
-### `npm run eject`
+| React | Flask | MongoDB | LLaMA 3.2 (Sambanova) |
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+\---
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+\## Watch MongoChat in action:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+👉 \[Click here to watch the demo video\](https://drive.google.com/file/d/your-video-id/view)
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+\---
 
-## Learn More
+\## 🔧 Setup Instructions
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+\### Prerequisites
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+\- Node.js
 
-### Code Splitting
+\- Python 3.8+
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+\- MongoDB instance (local or cloud)
 
-### Analyzing the Bundle Size
+\- Sambanova API access (LLaMA 3.2)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+\---
 
-### Making a Progressive Web App
+\### 1. Clone the Repository
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+\`\`\`bash
 
-### Advanced Configuration
+git clone https://github.com/MalaiarasuGRaj/MongoChat.git
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+cd MongoChat
 
-### Deployment
+2\. Setup Backend
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+bash
 
-### `npm run build` fails to minify
+Copy
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Edit
+
+cd backend
+
+python -m venv venv
+
+source venv/bin/activate # On Windows: venv\\Scripts\\activate
+
+pip install -r requirements.txt
+
+Create a .env file in backend/ with your MongoDB URI and Sambanova API key:
+
+env
+
+Copy
+
+Edit
+
+MONGO\_URI=your\_mongo\_uri
+
+SAMBANOVA\_API\_KEY=your\_api\_key
+
+Run the Flask server:
+
+bash
+
+Copy
+
+Edit
+
+python src/app.py
+
+3\. Setup Frontend
+
+bash
+
+Copy
+
+Edit
+
+cd ../frontend
+
+npm install
+
+npm start
+
+💬 Example Usage
+
+💡 "Show me all users who signed up in the last 7 days."
+
+→ MongoChat will translate this into a MongoDB query and return results instantly.
+
+🙌 Credits
+
+LLaMA 3.2 by Sambanova for the powerful LLM.
+
+Built by Malaiarasu G Raj
