@@ -24,7 +24,7 @@ MongoChat is a full-stack AI chatbot built with **React**, **Flask**, and **Mong
 
 ## 📽 Watch MongoChat in action:
 
-👉 [Click here to watch the demo video]([https://drive.google.com/file/d/your-video-id/view](https://drive.google.com/file/d/1GgoN224DRq37ljKpkCkU8iH3hAtk7s49/view?usp=sharing))
+👉 [Click here to watch the demo video]([https://drive.google.com/file/d/1GgoN224DRq37ljKpkCkU8iH3hAtk7s49/view?usp=sharing])
 
 ---
 
