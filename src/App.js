@@ -22,20 +22,29 @@ function App() {
       return;
     }
     setQuery("");
-
     setLoading(true);
     setError(null);
 
-    // Append the user's query to the chat history
-    const newHistory = [...chatHistory, { sender: "user", message: query }];
+    const newHistory = [
+      ...chatHistory,
+      { sender: "user", message: query }
+    ];
     setChatHistory(newHistory);
 
+    // Build context, limiting to the last 50 messages if necessary
+    const context = newHistory
+      .slice(-50) // Adjust number as needed
+      .map((chat) => `${chat.sender === "user" ? "User" : "Bot"}: ${chat.message}`)
+      .join("\n");
+
     try {
-      const res = await axios.get(`http://127.0.0.1:5000/query/${encodeURIComponent(query)}`);
+      const res = await axios.get(`http://127.0.0.1:5000/query/${encodeURIComponent(context)}`);
       const botResponse = res.data.Chatbot || "No response received.";
 
-      // Append the bot's response to the chat history
-      setChatHistory((prev) => [...prev, { sender: "bot", message: botResponse }]);
+      setChatHistory((prev) => [
+        ...prev,
+        { sender: "bot", message: botResponse }
+      ]);
     } catch (err) {
       setError(
         err.response?.data?.Message ||
@@ -46,7 +55,6 @@ function App() {
     }
   };
 
-  // Scroll to the bottom of the chat container when the chat history changes
   useEffect(() => {
     if (chatContainerRef.current) {
       chatContainerRef.current.scrollTo({
@@ -68,7 +76,12 @@ function App() {
             <ReactMarkdown>{chat.message}</ReactMarkdown>
           </div>
         ))}
-        {loading && <div className="chat-bubble bot">Loading...</div>}
+        {loading && (
+          <div className="chat-bubble bot">
+            Loading...
+            <div className="loader"></div>
+          </div>
+        )}
       </div>
       <form onSubmit={handleSubmit} className="input-form">
         <input
@@ -76,7 +89,7 @@ function App() {
           value={query}
           onChange={handleQueryChange}
           placeholder="Enter your query..."
-          aria-label="Query Input"
+          aria-label="Query Input" 
         />
         <button type="submit" aria-label="Submit Query">Send</button>
       </form>
